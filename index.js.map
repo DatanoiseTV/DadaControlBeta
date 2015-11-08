@@ -1,0 +1,31 @@
+{
+  "version": 3,
+  "sources": [
+    "node_modules/browserify/node_modules/browser-pack/_prelude.js",
+    "src/js/config/index.js",
+    "src/js/controllers/index.js",
+    "src/js/directives/compareTo.js",
+    "src/js/directives/index.js",
+    "src/js/directives/objectLength.js",
+    "src/js/filters/base64encode.js",
+    "src/js/filters/index.js",
+    "src/js/filters/range.js",
+    "src/js/index.js"
+  ],
+  "names": [],
+  "mappings": "AAAA;ACAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AC1BA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;ACjBA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;ACvBA;AACA;AACA;AACA;AACA;AACA;AACA;;ACNA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;ACdA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;ACTA;AACA;AACA;AACA;AACA;AACA;AACA;;ACNA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;ACrBA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA",
+  "file": "generated.js",
+  "sourceRoot": "",
+  "sourcesContent": [
+    "(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\"function\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\"Cannot find module '\"+o+\"'\");throw f.code=\"MODULE_NOT_FOUND\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\"function\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})",
+    "'use strict';\n\nmodule.exports = function(app) {\n  app.config(function($translateProvider) {\n    $translateProvider.fallbackLanguage(['en', 'de']);\n    $translateProvider.useStaticFilesLoader({\n      prefix: 'nls/locale-',\n      suffix: '.json'\n    });\n    $translateProvider.registerAvailableLanguageKeys(['en', 'de'],\n      {\n        'de_*': 'de',\n        'en_*': 'en',\n        '*': 'en'\n      }\n    );\n    $translateProvider.determinePreferredLanguage();\n  });\n};\n\nmodule.exports = function(app) {\n  // allow data: hrefs\n  app.config(['$compileProvider', function($compileProvider) {\n    $compileProvider.aHrefSanitizationWhitelist(/^\\s*(https?|mailto|data):/);\n  }]);\n};\n",
+    "'use strict';\n\nmodule.exports = function(app) {\n  app.controller('DadaControl', [\n    '$scope', 'leafletData', '$http', '$filter', 'downloadFile', '$translate',\n    'jsonrpc',\n    function($scope, leafletData, $http, $filter, downloadFile, $translate,\n             jsonrpc) {\n\n      $scope.selectedLanguage = $translate.use();\n      $scope.$watch('selectedLanguage', function(language) {\n        $translate.use(language);\n      });\n\n    }\n  ]);\n};\n",
+    "'use strict';\n\nmodule.exports = function(app) {\n  // http://odetocode.com/blogs/scott/archive/2014/10/13/confirm-password-validation-in-angularjs.aspx\n  app.directive('compareTo', function() {\n    return {\n      require: 'ngModel',\n      scope: {\n        otherModelValue: '=compareTo'\n      },\n      link: function(scope, element, attributes, ngModel) {\n\n        ngModel.$validators.compareTo = function(modelValue) {\n          return modelValue == scope.otherModelValue;\n        };\n\n        scope.$watch('otherModelValue', function() {\n          ngModel.$validate();\n        });\n      }\n    };\n  });\n};\n",
+    "'use strict';\n\nmodule.exports = function(app) {\n  require('./compareTo')(app);\n  require('./objectLength')(app);\n};\n",
+    "'use strict';\n\nmodule.exports = function(app) {\n\n  // see http://stackoverflow.com/a/25299523/1219479\n  app.filter('objectLength', function() {\n    return function(input) {\n      if (!angular.isObject(input)) {\n        return;\n      }\n      return Object.keys(input).length;\n    };\n  });\n};\n",
+    "'use strict';\n\nmodule.exports = function(app) {\n  app.filter('base64encode', ['$window', function($window) {\n    return function(input) {\n      return $window.btoa(input);\n    };\n  }]);\n};\n",
+    "'use strict';\n\nmodule.exports = function(app) {\n  require('./base64encode')(app);\n  require('./range')(app);\n};\n",
+    "'use strict';\n\nmodule.exports = function(app) {\n  app.filter('range', function() {\n    return function(input, a, b) {\n      var res = [];\n      var i;\n      if (a < b) {\n        for (i = a; i < b + 1; i++) {\n          res.push(i);\n        }\n      } else {\n        for (i = a; i > b - 1; i--) {\n          res.push(i);\n        }\n      }\n\n      return res;\n    };\n  });\n};\n",
+    "'use strict';\n\nvar dadacontrol = angular.module('DadaControl', [\n  'ui.bootstrap', 'ngAnimate', 'leaflet-directive', 'pascalprecht.translate'\n]);\n\nrequire('./config')(dadacontrol);\nrequire('./controllers')(dadacontrol);\nrequire('./directives')(dadacontrol);\nrequire('./filters')(dadacontrol);\n"
+  ]
+}
