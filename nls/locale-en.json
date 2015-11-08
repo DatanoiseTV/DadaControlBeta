@@ -1,3 +1,5 @@
 {
-    "intro": "Welcome to the DadaMachines Configuration Wizard. This Wizard allows you to customize your DadaMachine to your needs."
+    "intro": "Willkommen beim DadaMachines Konfigurationsassistenten.",
+
+    "select_device": "Select MIDI Device"
 }

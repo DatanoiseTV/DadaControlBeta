@@ -1,3 +1,5 @@
 {
-    "intro": "Willkommen beim DadaMachines Konfigurationsassistenten. Dieses Webbasierte Werkzeug wird dir dabei helfen, deine DadaMachines Hardware zu konfigurieren."
+    "intro": "Willkommen beim DadaMachines Konfigurationsassistenten.",
+
+    "select_device": "MIDI-Gerät auswählen"
 }
