@@ -2,6 +2,24 @@
 'use strict';
 
 module.exports = function(app) {
+  // allow data: hrefs
+  app.config(['$compileProvider', function($compileProvider) {
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|mailto|data):/);
+  }]);
+};
+
+},{}],2:[function(require,module,exports){
+'use strict';
+
+module.exports = function(app) {
+  require('./hrefWhitelist')(app);
+  require('./translate')(app);
+};
+
+},{"./hrefWhitelist":1,"./translate":3}],3:[function(require,module,exports){
+'use strict';
+
+module.exports = function(app) {
   app.config(function($translateProvider) {
     $translateProvider.fallbackLanguage(['en', 'de']);
     $translateProvider.useStaticFilesLoader({
@@ -19,14 +37,7 @@ module.exports = function(app) {
   });
 };
 
-module.exports = function(app) {
-  // allow data: hrefs
-  app.config(['$compileProvider', function($compileProvider) {
-    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|mailto|data):/);
-  }]);
-};
-
-},{}],2:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
@@ -45,7 +56,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],3:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
@@ -70,7 +81,7 @@ module.exports = function(app) {
   });
 };
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
@@ -78,7 +89,7 @@ module.exports = function(app) {
   require('./objectLength')(app);
 };
 
-},{"./compareTo":3,"./objectLength":5}],5:[function(require,module,exports){
+},{"./compareTo":5,"./objectLength":7}],7:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
@@ -94,7 +105,7 @@ module.exports = function(app) {
   });
 };
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
@@ -105,7 +116,7 @@ module.exports = function(app) {
   }]);
 };
 
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
@@ -113,7 +124,7 @@ module.exports = function(app) {
   require('./range')(app);
 };
 
-},{"./base64encode":6,"./range":8}],8:[function(require,module,exports){
+},{"./base64encode":8,"./range":10}],10:[function(require,module,exports){
 'use strict';
 
 module.exports = function(app) {
@@ -136,7 +147,7 @@ module.exports = function(app) {
   });
 };
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 var dadacontrol = angular.module('DadaControl', [
@@ -148,5 +159,5 @@ require('./controllers')(dadacontrol);
 require('./directives')(dadacontrol);
 require('./filters')(dadacontrol);
 
-},{"./config":1,"./controllers":2,"./directives":4,"./filters":7}]},{},[9])
+},{"./config":2,"./controllers":4,"./directives":6,"./filters":9}]},{},[11])
 //# sourceMappingURL=index.js.map
